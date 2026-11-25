@@ -6,6 +6,7 @@ export type Profile = {
   id: string;
   full_name: string | null;
   email: string | null;
+  phone?: string | null; // only selected by admin pages
   role: "patient" | "admin";
 };
 

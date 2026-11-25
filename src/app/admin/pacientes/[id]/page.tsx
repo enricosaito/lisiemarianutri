@@ -6,6 +6,7 @@ import { AppHeader, Eyebrow } from "@/components/app-header";
 import { PageLoading } from "@/components/page-loading";
 import { requireAdmin, type Profile } from "@/lib/auth";
 import { formatWeek, formatWeight, QUESTIONS, type Checkin } from "@/lib/checkin";
+import { AccessLinkButton } from "./access-link-button";
 
 function withDetails(main: string, details: string | null) {
   return details ? `${main} — ${details}` : main;
@@ -26,7 +27,7 @@ async function PatientHistory({ params }: PageProps<"/admin/pacientes/[id]">) {
   const [{ data: patient }, { data: checkins }] = await Promise.all([
     supabase
       .from("profiles")
-      .select("id, full_name, email, role")
+      .select("id, full_name, email, phone, role")
       .eq("id", id)
       .maybeSingle<Profile>(),
     supabase
@@ -54,9 +55,14 @@ async function PatientHistory({ params }: PageProps<"/admin/pacientes/[id]">) {
         <h1 className="mt-4 font-heading text-5xl italic leading-[1.05]">
           {patient.full_name || patient.email}
         </h1>
-        {patient.full_name && (
-          <p className="mt-2 text-sm text-muted-foreground">{patient.email}</p>
-        )}
+        <p className="mt-2 text-sm text-muted-foreground">
+          {[patient.full_name && patient.email, patient.phone && `WhatsApp +${patient.phone}`]
+            .filter(Boolean)
+            .join(" · ")}
+        </p>
+        <div className="mt-6">
+          <AccessLinkButton patientId={patient.id} />
+        </div>
 
         {!checkins?.length ? (
           <p className="mt-10 text-sm text-muted-foreground">Nenhum check-in ainda.</p>

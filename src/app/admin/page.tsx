@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, UserPlus } from "lucide-react";
 import { AppHeader, Eyebrow } from "@/components/app-header";
+import { buttonVariants } from "@/components/ui/button";
 import { PageLoading } from "@/components/page-loading";
 import { requireAdmin, type Profile } from "@/lib/auth";
 import { currentWeekStart, formatWeek } from "@/lib/checkin";
@@ -45,11 +46,18 @@ async function AdminContent() {
       <AppHeader isAdmin />
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-14">
         <Eyebrow>Painel da nutricionista</Eyebrow>
-        <h1 className="mt-4 font-heading text-5xl italic leading-[1.05]">pacientes</h1>
-        <p className="mt-4 text-sm text-muted-foreground">
-          Semana {formatWeek(week)} · {answered} de {patients?.length ?? 0} responderam o
-          check-in
-        </p>
+        <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h1 className="font-heading text-5xl italic leading-[1.05]">pacientes</h1>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Semana {formatWeek(week)} · {answered} de {patients?.length ?? 0} responderam o
+              check-in
+            </p>
+          </div>
+          <Link href="/admin/pacientes/novo" className={buttonVariants({ className: "h-10 px-4" })}>
+            <UserPlus className="size-4" /> Adicionar paciente
+          </Link>
+        </div>
 
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {(patients ?? []).map((p) => {
