@@ -26,7 +26,7 @@ async function CheckinContent() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <AppHeader isAdmin={profile.role === "admin"} />
+      <AppHeader isAdmin={profile.role === "admin"} patientView />
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-14">
         <Eyebrow>Check-in semanal · {formatWeek(week)}</Eyebrow>
         <h1 className="mt-4 font-heading text-5xl italic leading-[1.05]">

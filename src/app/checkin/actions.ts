@@ -80,5 +80,6 @@ export async function saveCheckin(
     return { error: "Não foi possível salvar. Tente novamente." };
   }
 
-  redirect("/?checkin=ok");
+  // Admins previewing the patient area stay in it.
+  redirect(profile.role === "admin" ? "/?visao=paciente&checkin=ok" : "/?checkin=ok");
 }

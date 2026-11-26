@@ -18,7 +18,10 @@ export default function Home(props: PageProps<"/">) {
 
 async function HomeContent({ searchParams }: PageProps<"/">) {
   const { supabase, profile } = await requireProfile();
-  if (profile.role === "admin") redirect("/admin");
+  const params = await searchParams;
+  const isAdmin = profile.role === "admin";
+  // Admins land on their panel unless they asked for the patient view.
+  if (isAdmin && params.visao !== "paciente") redirect("/admin");
 
   const week = currentWeekStart();
   const { data: thisWeek } = await supabase
@@ -27,12 +30,12 @@ async function HomeContent({ searchParams }: PageProps<"/">) {
     .eq("patient_id", profile.id)
     .eq("week_start", week)
     .maybeSingle();
-  const justSent = (await searchParams).checkin === "ok";
+  const justSent = params.checkin === "ok";
   const firstName = profile.full_name?.split(" ")[0];
 
   return (
     <div className="flex flex-1 flex-col">
-      <AppHeader />
+      <AppHeader isAdmin={isAdmin} patientView />
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-14">
         <Eyebrow>Área do paciente</Eyebrow>
         <h1 className="mt-4 font-heading text-5xl italic leading-[1.05] sm:text-6xl">
