@@ -28,7 +28,7 @@ export function NewPatientForm() {
           const data = new FormData(e.currentTarget);
           startTransition(() => action(data));
         }}
-        className="flex max-w-md flex-col gap-5"
+        className="flex w-full max-w-md flex-col gap-5"
       >
         <div className="flex flex-col gap-2">
           <Label htmlFor="full_name">Nome completo</Label>
@@ -60,7 +60,7 @@ export function NewPatientForm() {
             {state.error}
           </p>
         )}
-        <Button type="submit" disabled={pending} className="h-11 w-fit px-8">
+        <Button type="submit" disabled={pending} className="h-11 w-full rounded-lg px-8 sm:w-fit">
           {pending ? "Criando…" : "Criar paciente"}
         </Button>
       </form>

@@ -17,7 +17,7 @@ export function AccessLinkButton({ patientId }: { patientId: string }) {
         type="button"
         variant="outline"
         disabled={pending}
-        className="h-10 w-fit bg-white px-4"
+        className="h-11 w-full rounded-lg bg-white px-4 sm:w-fit"
         onClick={() => startTransition(async () => setState(await newAccessLink(patientId)))}
       >
         <KeyRound className="size-4" />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Arimo, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
@@ -18,6 +18,14 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Lisie Maria Nutricionista",
   description: "Área de pacientes da Lisie Maria Nutricionista",
+};
+
+// Edge-to-edge on phones (safe areas handled in the header and bottom bars).
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#fffdf6",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

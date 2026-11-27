@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 import { AppHeader, Eyebrow } from "@/components/app-header";
 import { PageLoading } from "@/components/page-loading";
 import { requireAdmin, type Profile } from "@/lib/auth";
@@ -42,17 +42,17 @@ async function PatientHistory({ params }: PageProps<"/admin/pacientes/[id]">) {
   return (
     <div className="flex flex-1 flex-col">
       <AppHeader isAdmin />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-14">
+      <main className="page-enter mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:py-14">
         <Link
           href="/admin"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          className="-ml-1 inline-flex h-10 items-center gap-1 rounded-md px-1 text-sm text-muted-foreground transition-colors hover:text-foreground active:opacity-60"
         >
           <ArrowLeft className="size-4" /> Pacientes
         </Link>
         <div className="mt-6">
           <Eyebrow>Histórico de check-ins</Eyebrow>
         </div>
-        <h1 className="mt-4 font-heading text-5xl italic leading-[1.05]">
+        <h1 className="mt-4 font-heading text-4xl italic leading-[1.05] tracking-tight sm:text-5xl">
           {patient.full_name || patient.email}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -69,7 +69,7 @@ async function PatientHistory({ params }: PageProps<"/admin/pacientes/[id]">) {
         ) : (
           <>
             {/* Week-over-week numbers at a glance */}
-            <div className="mt-10 overflow-x-auto border border-border bg-card">
+            <div className="-mx-4 mt-10 overflow-x-auto overscroll-x-contain border-y border-border bg-card sm:mx-0 sm:rounded-xl sm:border">
               <table className="w-full text-sm">
                 <thead className="bg-muted text-left text-xs tracking-wide uppercase">
                   <tr>
@@ -119,25 +119,23 @@ async function PatientHistory({ params }: PageProps<"/admin/pacientes/[id]">) {
                   <details
                     key={c.id}
                     open={i === 0}
-                    className="group border border-border bg-card"
+                    className="group overflow-hidden rounded-xl border border-border bg-card"
                   >
-                    <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4">
-                      <span className="font-heading text-2xl font-medium">
+                    <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 px-4 py-4 transition-colors active:bg-muted sm:px-5 [&::-webkit-details-marker]:hidden">
+                      <span className="font-heading text-xl font-medium tracking-tight sm:text-2xl">
                         Semana {formatWeek(c.week_start)}
                       </span>
-                      <span className="text-xs text-muted-foreground group-open:hidden">
-                        ver respostas
-                      </span>
+                      <ChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-180 motion-reduce:transition-none" />
                     </summary>
-                    <ol className="flex flex-col gap-5 border-t border-border px-5 py-5">
+                    <ol className="flex animate-in flex-col gap-5 border-t border-border px-4 py-5 fade-in duration-300 motion-reduce:animate-none sm:px-5">
                       {answers.map(([q, a], n) => (
                         <li key={q} className="flex gap-4">
                           <span className="flex size-7 shrink-0 items-center justify-center bg-brand-brown text-xs font-bold text-brand-yellow">
                             {n + 1}
                           </span>
-                          <div>
+                          <div className="min-w-0">
                             <p className="text-xs text-muted-foreground">{q}</p>
-                            <p className="mt-1 text-sm whitespace-pre-line">{a}</p>
+                            <p className="mt-1 text-sm break-words whitespace-pre-line">{a}</p>
                           </div>
                         </li>
                       ))}

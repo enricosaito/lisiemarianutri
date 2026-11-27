@@ -17,22 +17,23 @@ export function AppHeader({
   const home = !isAdmin ? "/" : patientView ? PATIENT_VIEW_HREF : "/admin";
 
   return (
-    <header className="border-b border-border">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-5">
-        <Link href={home}>
-          <Logo />
+    // Translucent bar that content scrolls under, clear of the notch.
+    <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 pt-[env(safe-area-inset-top)] backdrop-blur-xl backdrop-saturate-150 supports-[not(backdrop-filter:blur(0))]:bg-background">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-3 sm:py-4">
+        <Link href={home} className="shrink-0 rounded-md active:opacity-60">
+          <Logo className="h-7 sm:h-8" />
         </Link>
         <div className="flex items-center gap-1">
           {isAdmin && (
             <Link
               href={patientView ? "/admin" : PATIENT_VIEW_HREF}
-              className={buttonVariants({ variant: "ghost", size: "sm" })}
+              className={buttonVariants({ variant: "ghost", className: "h-10 px-3" })}
             >
               {patientView ? "Painel" : "Área do paciente"}
             </Link>
           )}
           <form action={signOut}>
-            <Button variant="ghost" size="sm" type="submit">
+            <Button variant="ghost" type="submit" className="h-10 px-3">
               Sair
             </Button>
           </form>

@@ -41,7 +41,7 @@ export function LoginForm() {
           {state.error}
         </p>
       )}
-      <Button type="submit" disabled={pending} className="h-11 text-sm tracking-wide">
+      <Button type="submit" disabled={pending} className="h-12 rounded-lg text-sm tracking-wide">
         {pending ? "Entrando…" : "Entrar"}
       </Button>
     </form>

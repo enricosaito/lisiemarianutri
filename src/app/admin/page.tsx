@@ -44,17 +44,17 @@ async function AdminContent() {
   return (
     <div className="flex flex-1 flex-col">
       <AppHeader isAdmin />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-14">
+      <main className="page-enter mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:py-14">
         <Eyebrow>Painel da nutricionista</Eyebrow>
-        <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
+        <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h1 className="font-heading text-5xl italic leading-[1.05]">pacientes</h1>
+            <h1 className="font-heading text-4xl italic leading-[1.05] tracking-tight sm:text-5xl">pacientes</h1>
             <p className="mt-4 text-sm text-muted-foreground">
               Semana {formatWeek(week)} · {answered} de {patients?.length ?? 0} responderam o
               check-in
             </p>
           </div>
-          <Link href="/admin/pacientes/novo" className={buttonVariants({ className: "h-10 px-4" })}>
+          <Link href="/admin/pacientes/novo" className={buttonVariants({ className: "h-11 w-full rounded-lg px-4 sm:w-fit" })}>
             <UserPlus className="size-4" /> Adicionar paciente
           </Link>
         </div>
@@ -67,7 +67,7 @@ async function AdminContent() {
               <li key={p.id}>
                 <Link
                   href={`/admin/pacientes/${p.id}`}
-                  className="flex items-center gap-4 px-2 py-4 transition-colors hover:bg-muted"
+                  className="flex min-h-16 items-center gap-3 px-2 py-4 transition-colors duration-150 hover:bg-muted active:bg-muted active:duration-0 sm:gap-4"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-medium">{p.full_name || p.email}</p>
@@ -80,8 +80,8 @@ async function AdminContent() {
                   <span
                     className={
                       done
-                        ? "bg-brand-brown px-2 py-1 text-xs text-brand-yellow"
-                        : "bg-brand-yellow px-2 py-1 text-xs"
+                        ? "shrink-0 rounded-md bg-brand-brown px-2 py-1 text-xs text-brand-yellow"
+                        : "shrink-0 rounded-md bg-brand-yellow px-2 py-1 text-xs"
                     }
                   >
                     {done ? "respondeu" : "pendente"}

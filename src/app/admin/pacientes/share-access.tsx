@@ -24,19 +24,19 @@ export function ShareAccess({ access }: { access: AccessLink }) {
     : null;
 
   return (
-    <div className="flex flex-col gap-4 border border-border bg-brand-yellow/60 p-5">
+    <div className="flex animate-in flex-col gap-4 rounded-xl border border-border bg-brand-yellow/60 p-4 fade-in slide-in-from-bottom-2 duration-300 ease-out motion-reduce:animate-none sm:p-5">
       <p className="text-sm font-medium">Link de acesso de {access.name}</p>
-      <p className="break-all bg-white px-3 py-2 font-mono text-xs">{access.link}</p>
+      <p className="break-all rounded-md bg-white px-3 py-2 font-mono text-xs">{access.link}</p>
       <p className="text-xs text-muted-foreground">
         Funciona uma vez. Se expirar, gere outro na página do paciente.
       </p>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid gap-2 sm:flex sm:flex-wrap">
         {whatsapp && (
           <a
             href={whatsapp}
             target="_blank"
             rel="noreferrer"
-            className={buttonVariants({ className: "h-10 px-4" })}
+            className={buttonVariants({ className: "h-11 rounded-lg px-4" })}
           >
             <MessageCircle className="size-4" /> Enviar no WhatsApp
           </a>
@@ -44,7 +44,7 @@ export function ShareAccess({ access }: { access: AccessLink }) {
         <Button
           type="button"
           variant={whatsapp ? "outline" : "default"}
-          className="h-10 bg-white px-4"
+          className="h-11 rounded-lg bg-white px-4"
           onClick={async () => {
             await navigator.clipboard.writeText(text);
             setCopied(true);

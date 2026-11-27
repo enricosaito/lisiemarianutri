@@ -38,6 +38,30 @@ export const QUESTIONS = {
     "Como você está se sentindo dentro do acompanhamento? Conte sua experiência!",
 } as const;
 
+// Questions 5, 7 and 9 are a quick choice plus optional details, stored together
+// in one text column as "Choice — details" so admins read them as one answer.
+export const STRESS_LEVELS = ["Baixo", "Moderado", "Alto"] as const;
+export const SLEEP_LEVELS = ["Dormi bem", "Regular", "Dormi mal"] as const;
+export const DIFFICULTY_OPTIONS = ["Não", "Sim"] as const;
+
+const CHOICE_SEPARATOR = " — ";
+
+export function joinChoice(choice: string, details: string): string {
+  return details ? `${choice}${CHOICE_SEPARATOR}${details}` : choice;
+}
+
+/** Splits a stored answer back into choice + details. Older free-text answers become details only. */
+export function splitChoice(
+  value: string | null | undefined,
+  options: readonly string[],
+): { choice?: string; details: string } {
+  if (!value) return { details: "" };
+  const [head, ...rest] = value.split(CHOICE_SEPARATOR);
+  return options.includes(head)
+    ? { choice: head, details: rest.join(CHOICE_SEPARATOR) }
+    : { details: value };
+}
+
 /** Monday of the current week in São Paulo, as YYYY-MM-DD. Mirrors the DB's current_week_start(). */
 export function currentWeekStart(now = new Date()): string {
   const today = new Intl.DateTimeFormat("en-CA", {

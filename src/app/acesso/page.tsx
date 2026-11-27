@@ -6,12 +6,12 @@ import { SetPasswordForm } from "./set-password-form";
 // Landing page of the access link Lisie sends on WhatsApp.
 export default function AccessPage({ searchParams }: PageProps<"/acesso">) {
   return (
-    <main className="flex flex-1 items-center justify-center px-4 py-16">
+    <main className="page-enter flex flex-1 items-center justify-center px-4 pt-[max(3rem,env(safe-area-inset-top))] pb-[max(3rem,env(safe-area-inset-bottom))]">
       <div className="w-full max-w-sm">
         <Logo variant="stacked" className="mx-auto" />
         <div className="mt-14 text-center">
           <Eyebrow>Primeiro acesso</Eyebrow>
-          <h1 className="mt-4 font-heading text-5xl italic leading-[1.05]">
+          <h1 className="mt-4 font-heading text-4xl italic leading-[1.05] tracking-tight sm:text-5xl">
             crie sua senha
           </h1>
         </div>

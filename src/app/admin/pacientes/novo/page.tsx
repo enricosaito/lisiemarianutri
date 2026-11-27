@@ -20,17 +20,17 @@ async function NewPatient() {
   return (
     <div className="flex flex-1 flex-col">
       <AppHeader isAdmin />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-14">
+      <main className="page-enter mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:py-14">
         <Link
           href="/admin"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          className="-ml-1 inline-flex h-10 items-center gap-1 rounded-md px-1 text-sm text-muted-foreground transition-colors hover:text-foreground active:opacity-60"
         >
           <ArrowLeft className="size-4" /> Pacientes
         </Link>
         <div className="mt-6">
           <Eyebrow>Novo paciente</Eyebrow>
         </div>
-        <h1 className="mt-4 font-heading text-5xl italic leading-[1.05]">
+        <h1 className="mt-4 font-heading text-4xl italic leading-[1.05] tracking-tight sm:text-5xl">
           adicionar paciente
         </h1>
         <p className="mt-4 max-w-xl text-sm text-muted-foreground">

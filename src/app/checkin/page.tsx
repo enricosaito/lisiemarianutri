@@ -27,17 +27,20 @@ async function CheckinContent() {
   return (
     <div className="flex flex-1 flex-col">
       <AppHeader isAdmin={profile.role === "admin"} patientView />
-      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-14">
-        <Eyebrow>Check-in semanal · {formatWeek(week)}</Eyebrow>
-        <h1 className="mt-4 font-heading text-5xl italic leading-[1.05]">
-          como foi sua semana?
-        </h1>
-        <p className="mt-4 max-w-xl text-sm text-muted-foreground">
-          Responda com sinceridade e detalhes para que possamos acompanhar sua
-          evolução e ajustar o que for necessário.
-          {existing && " Você já enviou esta semana. Pode editar até domingo."}
-        </p>
-        <div className="mt-12">
+      {/* No page-enter on <main>: a transform would trap the form's fixed bottom bar. */}
+      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:py-14">
+        <div className="page-enter">
+          <Eyebrow>Check-in semanal · {formatWeek(week)}</Eyebrow>
+          <h1 className="mt-4 font-heading text-4xl italic leading-[1.05] tracking-tight sm:text-5xl">
+            como foi sua semana?
+          </h1>
+          <p className="mt-4 max-w-xl text-sm text-muted-foreground">
+            Responda com sinceridade e detalhes para que possamos acompanhar sua
+            evolução e ajustar o que for necessário.
+            {existing && " Você já enviou esta semana. Pode editar até domingo."}
+          </p>
+        </div>
+        <div className="mt-10 sm:mt-12">
           <CheckinForm existing={existing ?? null} />
         </div>
       </main>
